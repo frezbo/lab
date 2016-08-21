@@ -114,13 +114,16 @@ kdc server: classroom.example.com <br/>
 REALM: EXAMPLE.COM <br/>
 ldap server: classroom.example.com <br/>
 DN: dc=example,dc=com <br>
+
 users: <br/>
-* user: vagrant, password: vagrant 
+* user: vagrant, password: vagrant <br/>
 * user: root, password: centos <br/>
+
 ldap users:
 * ldapuser1 <br/>
 * ldapuser2 <br/>
 * ldapuser3 <br/>
+
 ldap user home directory: /home/guests <br/>
 ldap authentication password: password <br/>
 kerberos authentication password: kerberos <br/>
@@ -133,9 +136,11 @@ CA certificate: http://classroom.example.com/pki/cacert.pem <br/>
 
 hostname: server.example.com <br/>
 ip: 192.168.33.11 <br/>
+
 users: <br/>
 * user: vagrant, password: vagrant <br/>
 * user: root, password: centos <br/>
+
 secondary disk: /dev/sdb if using virtualbox, otherwise /dev/vdb <br/>
 
 #### desktop1
@@ -143,8 +148,10 @@ secondary disk: /dev/sdb if using virtualbox, otherwise /dev/vdb <br/>
 hostname: desktop1.example.com <br/>
 ip: 192.168.33.10 <br/>
 users: <br/>
+
 * user: vagrant, password: vagrant <br/>
 * user: root, password: centos <br/>
+
 secondary disk: /dev/sdb if using virtualbox, otherwise /dev/vdb <br/>
 
 
