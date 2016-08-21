@@ -59,7 +59,7 @@ sed -i '12,18s/^/#/g' libvirt/scripts/desktop/desktop.sh
 
 ## Recommendations
 
-1. If possible clone the official centos mirrors so that the packages are available locally. Find the nearest mirros from: https://www.centos.org/download/mirrors/
+1. If possible clone the official centos mirrors so that the packages are available locally. Find the nearest mirros from: https://www.centos.org/download/mirrors/ and change in scripts/repoupdate 
 
 ### Ubuntu 16.04.1 LTS
 
