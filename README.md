@@ -33,6 +33,7 @@ Vagrant files for RHEL7.2 exam preparation.
         `vagrant box add centos/7` If asked for provider select libvirt.
 5. Clone this and run `vagrant up` inside lab/libvirt
 
-NB: If using fedora replace yum by dnf
-NB: run `vagrant up --no-parallel` to prevent bringing up all VM's together
+
+##### If using fedora replace yum by dnf
+##### run `vagrant up --no-parallel` to prevent bringing up all VM's together when using libvirt
 
