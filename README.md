@@ -93,5 +93,16 @@ find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {}
 ```
 #### Modify the scripts in scripts/ folder as per need
 
+## Lab system info
+
+domain: example.com
+
+#### classroom
+
+hostname: classroom.example.com <br/>
+ip: 192.168.33.254 <br/>
+kdc server <br/>
+
+
 
 
