@@ -28,7 +28,7 @@ sudo yum -y install vagrant redhat-rpm-config vagrant-libvirt vagrant-libvirt-do
 ``
 3. Install required vagrant plugins: 
 ``
-vagrant plugin install vagrant-libvirt 
+vagrant plugin install vagrant-libvirt <br/>
 vagrant plugin install fog
 vagrant plugin install sahara
 ``
