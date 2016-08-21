@@ -14,8 +14,8 @@ Vagrant files for RHEL7.2 exam preparation.
 	`sudo apt -y install vagrant`
 3. Install virtualbox: 
 	`sudo apt -y install virtualbox`
-4. Patch a file so that vagrant-vbguest plugin installs sucessfully (If you manually install latest vagrant, no need to patch)
-	`sudo patch --directory /usr/lib/ruby/vendor_ruby/vagrant << EOF
+4. Patch a file so that vagrant-vbguest plugin installs sucessfully (If you manually installed latest vagrant, no need to patch)
+	`"sudo patch --directory /usr/lib/ruby/vendor_ruby/vagrant << EOF
 ---
  lib/vagrant/bundler.rb | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
@@ -41,7 +41,7 @@ index 5a5c185..c4a3837 100644
        # Use a silent UI so that we have no output
        Gem::DefaultUserInteraction.use_ui(Gem::SilentUI.new) do
      return yield
-EOF`
+EOF"`
 5. Install vagrant vbguest-additions plugin: 
 	`vagrant plugin install vagrant-vbguest`
 6. Download centos 7 vagrant box: 
