@@ -37,7 +37,7 @@ vagrant plugin install sahara
 
 
 ##### If using fedora replace yum by dnf
-##### run `vagrant up --no-parallel` to prevent bringing up all VM's together when using libvirta
+##### run `vagrant up --no-parallel` to prevent bringing up all VM's together when using libvirt
 
 ### Run these commands if you do not have a local repo
 
