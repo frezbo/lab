@@ -115,7 +115,7 @@ REALM: EXAMPLE.COM <br/>
 ldap server: classroom.example.com <br/>
 DN: dc=example,dc=com <br>
 users: <br/>
-** user: vagrant, password: vagrant <br/>
+* user: vagrant, password: vagrant <br/>
 * user: root, password: centos <br/>
 ldap users:
 * ldapuser1 <br/>
