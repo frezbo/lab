@@ -128,8 +128,10 @@ ldap user home directory: /home/guests <br/>
 ldap authentication password: password <br/>
 kerberos authentication password: kerberos <br/>
 keytab files: <br/>
+
 * server: http://classroom.example.com/keytab/server1.keytab <br/>
 * desktop: http://classroom.example.com/keytab/desktop1.keytab <br/>
+
 CA certificate: http://classroom.example.com/pki/cacert.pem <br/>
 
 #### server1
