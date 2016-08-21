@@ -8,15 +8,12 @@ Vagrant files for RHEL7.2 exam preparation.
 
 #### Provider: virtualbox
 
-1. Update repos: 
-	`sudo apt update`
-2. Install vagrant: 
-	`sudo apt -y install vagrant`
-3. Install virtualbox: 
-	`sudo apt -y install virtualbox`
+1. Update repos: `sudo apt update`
+2. Install vagrant: `sudo apt -y install vagrant`
+3. Install virtualbox: `sudo apt -y install virtualbox`
 4. Patch a file if vagrant version is 1.8.1 (If you manually installed latest vagrant, no need to patch) link: http://stackoverflow.com/questions/36811863/cant-install-vagrant-plugins-in-ubuntu-16-04/36991648
-	`vagrant box add centos/7` If asked for provider select virtualbox.
-7. Clone this and run `vagrant up` inside lab/virtualbox
+5. Download centos vagrant box:	`vagrant box add centos/7` If asked for provider select virtualbox.
+6. Clone this and run `vagrant up` inside lab/virtualbox
 
 ###CentOS 7.2/Fedora 24
 
@@ -24,14 +21,16 @@ Vagrant files for RHEL7.2 exam preparation.
 
 1. Update: `sudo yum update`
 2. Install dependencies and vagrant: 
-	`sudo yum -y install vagrant redhat-rpm-config vagrant-libvirt vagrant-libvirt-doc libvirt-devel libxslt-devel libxml2-devel virt-manager`
+```
+sudo yum -y install vagrant redhat-rpm-config vagrant-libvirt vagrant-libvirt-doc libvirt-devel libxslt-devel libxml2-devel virt-manager
+```
 3. Install required vagrant plugins: 
-```bash
+```
 vagrant plugin install vagrant-libvirt 
 vagrant plugin install fog
-vagrant plugin install sahara```
-4. Download centos 7 vagrant box: 
-        `vagrant box add centos/7` If asked for provider select libvirt.
+vagrant plugin install sahara
+```
+4. Download centos 7 vagrant box: `vagrant box add centos/7` If asked for provider select libvirt.
 5. Clone this and run `vagrant up` inside lab/libvirt
 
 
@@ -59,5 +58,28 @@ vagrant plugin install sahara```
 
 1. Run a cron job daily using the script, scripts/repoupdate 
 2. Install apache webserver
-3. `sudo systemctl enable apache2`
-`sudo systemctl restart apache2`
+```
+sudo apt -y install apache2
+sudo rm -f /var/www/html/*
+sudo systemctl enable apache2
+sudo systemctl restart apache2
+```
+3. Modify the ip address in the scripts in scripts/ folder to the ip of your base machine
+
+### CentOS 7.2/Fedora 24
+
+1. Run a cron job daily using the script, scripts/repoupdate
+2. Install apache webserver
+```
+sudo yum -y install httpd
+sudo sed -i s/^/#/g /etc/httpd/conf.d/welcome.conf
+sudo systemctl enable httpd
+sudo systemctl restart httpd
+```
+3. Modify the ip address in the scripts in scripts/ folder to the ip of your bas
+e machine
+`find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {}`
+
+
+
+
