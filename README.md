@@ -1,6 +1,8 @@
 # RHEL7.2 lab script
 
-Vagrant files for RHEL7.2 exam preparation.
+Vagrant files for RHCE exam preparation.
+Learn more about vagrant at: https://www.vagrantup.com/
+
 
 ## Installation
 
