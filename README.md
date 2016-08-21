@@ -14,37 +14,7 @@ Vagrant files for RHEL7.2 exam preparation.
 	`sudo apt -y install vagrant`
 3. Install virtualbox: 
 	`sudo apt -y install virtualbox`
-4. Patch a file so that vagrant-vbguest plugin installs sucessfully (If you manually installed latest vagrant, no need to patch)
-	`"sudo patch --directory /usr/lib/ruby/vendor_ruby/vagrant << EOF
----
- lib/vagrant/bundler.rb | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/lib/vagrant/bundler.rb b/lib/vagrant/bundler.rb
-index 5a5c185..c4a3837 100644
---- a/lib/vagrant/bundler.rb
-+++ b/lib/vagrant/bundler.rb
-@@ -272,7 +272,6 @@ module Vagrant
-
-       # Reset the all specs override that Bundler does
-       old_all = Gem::Specification._all
--      Gem::Specification.all = nil
-
-       # /etc/gemrc and so on.
-       old_config = nil
-@@ -286,6 +285,8 @@ module Vagrant
-       end
-       Gem.configuration = NilGemConfig.new
-
-+      Gem::Specification.reset
-+
-       # Use a silent UI so that we have no output
-       Gem::DefaultUserInteraction.use_ui(Gem::SilentUI.new) do
-     return yield
-EOF"`
-5. Install vagrant vbguest-additions plugin: 
-	`vagrant plugin install vagrant-vbguest`
-6. Download centos 7 vagrant box: 
+4. Patch a file if vagrant version is 1.8.1 (If you manually installed latest vagrant, no need to patch) link: http://stackoverflow.com/questions/36811863/cant-install-vagrant-plugins-in-ubuntu-16-04/36991648
 	`vagrant box add centos/7` If asked for provider select virtualbox.
 7. Clone this and run `vagrant up` inside lab/virtualbox
 
