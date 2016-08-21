@@ -115,18 +115,18 @@ REALM: EXAMPLE.COM <br/>
 ldap server: classroom.example.com <br/>
 DN: dc=example,dc=com <br>
 users: <br/>
-* 1. user: vagrant, password: vagrant <br/>
-* 2. user: root, password: centos <br/>
+** user: vagrant, password: vagrant <br/>
+* user: root, password: centos <br/>
 ldap users:
-* 1. ldapuser1 <br/>
-* 2. ldapuser2 <br/>
-* 3. ldapuser3 <br/>
+* ldapuser1 <br/>
+* ldapuser2 <br/>
+* ldapuser3 <br/>
 ldap user home directory: /home/guests <br/>
 ldap authentication password: password <br/>
 kerberos authentication password: kerberos <br/>
 keytab files: <br/>
-* 1. server: http://classroom.example.com/keytab/server1.keytab <br/>
-* 2. desktop: http://classroom.example.com/keytab/desktop1.keytab <br/>
+* server: http://classroom.example.com/keytab/server1.keytab <br/>
+* desktop: http://classroom.example.com/keytab/desktop1.keytab <br/>
 CA certificate: http://classroom.example.com/pki/cacert.pem <br/>
 
 #### server1
@@ -134,8 +134,8 @@ CA certificate: http://classroom.example.com/pki/cacert.pem <br/>
 hostname: server.example.com <br/>
 ip: 192.168.33.11 <br/>
 users: <br/>
-* 1. user: vagrant, password: vagrant <br/>
-* 2. user: root, password: centos <br/>
+* user: vagrant, password: vagrant <br/>
+* user: root, password: centos <br/>
 secondary disk: /dev/sdb if using virtualbox, otherwise /dev/vdb <br/>
 
 #### desktop1
@@ -143,8 +143,8 @@ secondary disk: /dev/sdb if using virtualbox, otherwise /dev/vdb <br/>
 hostname: desktop1.example.com <br/>
 ip: 192.168.33.10 <br/>
 users: <br/>
-* 1. user: vagrant, password: vagrant <br/>
-* 2. user: root, password: centos <br/>
+* user: vagrant, password: vagrant <br/>
+* user: root, password: centos <br/>
 secondary disk: /dev/sdb if using virtualbox, otherwise /dev/vdb <br/>
 
 
