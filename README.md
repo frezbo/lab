@@ -134,7 +134,7 @@ CA certificate: http://classroom.example.com/pki/cacert.pem <br/>
 hostname: server.example.com <br/>
 ip: 192.168.33.11 <br/>
 users: <br/>
-        1. user: vagrant, password: vagrant <br/>
+</t>1. user: vagrant, password: vagrant <br/>
         2. user: root, password: centos <br/>
 secondary disk: /dev/sdb if using virtualbox, otherwise /dev/vdb <br/>
 
