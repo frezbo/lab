@@ -36,23 +36,28 @@ vagrant plugin install sahara
 
 ##### If using fedora replace yum by dnf
 ##### run `vagrant up --no-parallel` to prevent bringing up all VM's together when using libvirta
-##### Run these commands if you do not have a local repo
+
+### Run these commands if you do not have a local repo
 
 #### Ubuntu 16.04.1 LTS
 
-1. `sed -i '7,13s/^/#/g' virtualbox/scripts/classroom/classroom.sh`
-2. `sed -i '12,18s/^/#/g' virtualbox/scripts/server/server.sh`
-3. `sed -i '12,18s/^/#/g' virtualbox/scripts/desktop/desktop.sh`
+```
+sed -i '7,13s/^/#/g' virtualbox/scripts/classroom/classroom.sh
+sed -i '12,18s/^/#/g' virtualbox/scripts/server/server.sh
+sed -i '12,18s/^/#/g' virtualbox/scripts/desktop/desktop.sh
+```
 
 #### CentOS 7.2/Fedora 24
 
-1. `sed -i '7,13s/^/#/g' libvirt/scripts/classroom/classroom.sh`
-2. `sed -i '12,18s/^/#/g' libvirt/scripts/server/server.sh`
-3. `sed -i '12,18s/^/#/g' libvirt/scripts/desktop/desktop.sh`
+```
+sed -i '7,13s/^/#/g' libvirt/scripts/classroom/classroom.sh
+sed -i '12,18s/^/#/g' libvirt/scripts/server/server.sh
+sed -i '12,18s/^/#/g' libvirt/scripts/desktop/desktop.sh
+```
 
 ## Recommendations
 
-1. If possible clone the official centos mirrors so that the packages are available locally.
+1. If possible clone the official centos mirrors so that the packages are available locally. Find the nearest mirros from: https://www.centos.org/download/mirrors/
 
 ### Ubuntu 16.04.1 LTS
 
@@ -64,7 +69,10 @@ sudo rm -f /var/www/html/*
 sudo systemctl enable apache2
 sudo systemctl restart apache2
 ```
-3. Modify the ip address in the scripts in scripts/ folder to the ip of your base machine
+3. Modify the ip address in the scripts in scripts/ folder to the ip of your base machine: 
+```
+find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {}
+```
 
 ### CentOS 7.2/Fedora 24
 
@@ -77,9 +85,11 @@ sudo systemctl enable httpd
 sudo systemctl restart httpd
 ```
 3. Modify the ip address in the scripts in scripts/ folder to the ip of your bas
-e machine
-`find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {}`
-
+e machine: 
+```
+find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {}
+```
+#### Modify the scripts in scripts/ folder as per need
 
 
 
