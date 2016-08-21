@@ -27,11 +27,11 @@ Learn more about vagrant at: https://www.vagrantup.com/
 sudo yum -y install vagrant redhat-rpm-config vagrant-libvirt vagrant-libvirt-doc libvirt-devel libxslt-devel libxml2-devel virt-manager
 ``
 3. Install required vagrant plugins: 
-```
+``
 vagrant plugin install vagrant-libvirt 
 vagrant plugin install fog
 vagrant plugin install sahara
-```
+``
 4. Download centos 7 vagrant box: `vagrant box add centos/7` If asked for provider select libvirt.
 5. Clone this and run `vagrant up` inside lab/libvirt
 
@@ -59,18 +59,18 @@ sed -i '12,18s/^/#/g' libvirt/scripts/desktop/desktop.sh
 
 ## Recommendations
 
-1. If possible clone the official centos mirrors so that the packages are available locally. Find the nearest mirros from: https://www.centos.org/download/mirrors/ and change in scripts/repoupdate 
+If possible clone the official centos mirrors so that the packages are available locally. Find the nearest mirros from: https://www.centos.org/download/mirrors/ and change in scripts/repoupdate 
 
 ### Ubuntu 16.04.1 LTS
 
 1. Run a cron job daily using the script, scripts/repoupdate 
 2. Install apache webserver
-```
+``
 sudo apt -y install apache2
 sudo rm -f /var/www/html/*
 sudo systemctl enable apache2
 sudo systemctl restart apache2
-```
+``
 3. Modify the ip address in the scripts in scripts/ folder to the ip of your base machine: 
 ```
 find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {}
@@ -80,12 +80,12 @@ find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {}
 
 1. Run a cron job daily using the script, scripts/repoupdate
 2. Install apache webserver
-```
+``
 sudo yum -y install httpd
 sudo sed -i s/^/#/g /etc/httpd/conf.d/welcome.conf
 sudo systemctl enable httpd
 sudo systemctl restart httpd
-```
+``
 3. Modify the ip address in the scripts in scripts/ folder to the ip of your bas
 e machine: 
 ```
