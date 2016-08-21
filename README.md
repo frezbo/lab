@@ -23,9 +23,9 @@ Learn more about vagrant at: https://www.vagrantup.com/
 
 1. Update: `sudo yum update`
 2. Install dependencies and vagrant: 
-```
+``
 sudo yum -y install vagrant redhat-rpm-config vagrant-libvirt vagrant-libvirt-doc libvirt-devel libxslt-devel libxml2-devel virt-manager
-```
+``
 3. Install required vagrant plugins: 
 ```
 vagrant plugin install vagrant-libvirt 
