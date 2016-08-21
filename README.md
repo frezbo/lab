@@ -27,12 +27,11 @@ Learn more about vagrant at: https://www.vagrantup.com/
 sudo yum -y install vagrant redhat-rpm-config vagrant-libvirt vagrant-libvirt-doc libvirt-devel libxslt-devel libxml2-devel virt-manager
 ``
 3. Install required vagrant plugins: 
-```
+``
 vagrant plugin install vagrant-libvirt
 vagrant plugin install fog
 vagrant plugin install sahara
-```
-
+``
 4. Download centos 7 vagrant box: `vagrant box add centos/7` If asked for provider select libvirt.
 5. Clone this and run `vagrant up` inside lab/libvirt
 
