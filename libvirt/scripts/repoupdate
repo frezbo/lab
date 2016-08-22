@@ -1,4 +1,0 @@
-#!/bin/bash
-for i in os updates
-do rsync -aH rsync://mirror.fibergrid.in/centos/7.2.1511/$i /var/www/html/centos/7
-done
