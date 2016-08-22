@@ -10,28 +10,21 @@ Learn more about vagrant at: https://www.vagrantup.com/
 
 #### Provider: virtualbox
 
-1. Update repos: `sudo apt update`
-2. Install vagrant: `sudo apt -y install vagrant`
+1. Update repos: `sudo apt update && sudo apt upgrade`
+2. Install vagrant and dependencies: `sudo apt -y install vagrant && sudo apt -y install zlib1g-dev`
 3. Install virtualbox: `sudo apt -y install virtualbox`
 4. Patch a file if vagrant version is 1.8.1 (If you manually installed latest vagrant, no need to patch) link: http://stackoverflow.com/questions/36811863/cant-install-vagrant-plugins-in-ubuntu-16-04/36991648
-5. Download centos vagrant box:	`vagrant box add centos/7` If asked for provider select virtualbox.
-6. Clone this and run `vagrant up` inside lab/virtualbox
+5. Install required vagrant plugins: `vagrant plugin install vagrant-vbguest && vagrant plugin install sahara;`
+6. Download centos vagrant box:	`vagrant box add centos/7` If asked for provider select virtualbox.
+7. Clone this and run `vagrant up` inside lab/virtualbox
 
 ###CentOS 7.2/Fedora 24
 
 #### Provider: libvirt
 
 1. Update: `sudo yum update`
-2. Install dependencies and vagrant: 
-``
-sudo yum -y install vagrant redhat-rpm-config vagrant-libvirt vagrant-libvirt-doc libvirt-devel libxslt-devel libxml2-devel virt-manager
-``
-3. Install required vagrant plugins: 
-``
-vagrant plugin install vagrant-libvirt;
-vagrant plugin install fog;
-vagrant plugin install sahara;
-``
+2. Install dependencies and vagrant: `sudo yum -y install vagrant redhat-rpm-config vagrant-libvirt vagrant-libvirt-doc libvirt-devel libxslt-devel libxml2-devel virt-manager`
+3. Install required vagrant plugins: `vagrant plugin install vagrant-libvirt && vagrant plugin install fog && vagrant plugin install sahara;`
 4. Download centos 7 vagrant box: `vagrant box add centos/7` If asked for provider select libvirt.
 5. Clone this and run `vagrant up` inside lab/libvirt
 
@@ -73,7 +66,7 @@ sudo systemctl restart apache2
 ``
 3. Modify the ip address in the scripts in scripts/ folder to the ip of your base machine: 
 ```
-find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {}
+find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {} \;
 ```
 
 ### CentOS 7.2/Fedora 24
@@ -86,10 +79,9 @@ sudo sed -i s/^/#/g /etc/httpd/conf.d/welcome.conf
 sudo systemctl enable httpd
 sudo systemctl restart httpd
 ``
-3. Modify the ip address in the scripts in scripts/ folder to the ip of your bas
-e machine: 
+3. Modify the ip address in the scripts in scripts/ folder to the ip of your base machine: 
 ```
-find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {}
+find scripts/ -type f -name "*.sh" -exec sed -i 's/172.16.0.143/<your-ip>/g' {} \;
 ```
 #### Modify the scripts in scripts/ folder as per need
 
