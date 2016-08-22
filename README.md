@@ -1,7 +1,8 @@
 # Vagrant RHCE lab setup
 
-Vagrant files for RHCE exam preparation.
-Learn more about vagrant at: https://www.vagrantup.com/
+Vagrant files for RHCE exam preparation. <br/>
+Learn more about vagrant at: https://www.vagrantup.com/ <br/>
+Sahara vagrant plugin used for snapshots: https://github.com/jedi4ever/sahara
 
 
 ## Installation
