@@ -9,6 +9,7 @@ nameserver 192.168.33.254
 domain example.com
 EOF
 echo "PEERDNS=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0
+systemctl restart network
 sed -i.old /mirrorlist=.*repo=os/s/^/#/ /etc/yum.repos.d/CentOS-Base.repo
 sed -i /mirrorlist=.*repo=updates/s/^/#/ /etc/yum.repos.d/CentOS-Base.repo
 sed -i /mirrorlist=.*repo=extras/aenabled=0 /etc/yum.repos.d/CentOS-Base.repo
