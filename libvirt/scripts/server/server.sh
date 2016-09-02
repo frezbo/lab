@@ -16,7 +16,7 @@ sed -i /mirrorlist=.*repo=extras/aenabled=0 /etc/yum.repos.d/CentOS-Base.repo
 sed -i '/#baseurl=.*\/os/s/^#//' /etc/yum.repos.d/CentOS-Base.repo
 sed -i '/#baseurl=.*\/updates/s/^#//' /etc/yum.repos.d/CentOS-Base.repo
 sed -i /^baseurl=/s/mirror.centos.org/172.16.0.143/ /etc/yum.repos.d/CentOS-Base.repo
-yum -y update
+#yum -y update #adds up the build time uncomment if necessary
 yum -y install net-tools bind-utils vim wget policycoreutils-python krb5-workstation acl
 sed -i.old s/^#//g /etc/krb5.conf
 sed -i s/kerberos/classroom/g /etc/krb5.conf
