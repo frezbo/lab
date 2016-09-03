@@ -97,7 +97,6 @@ cp ${ca_dir}/certs/classroom.crt /etc/openldap/certs
 cp ${ca_dir}/certs/ca.crt /etc/openldap/certs
 cp ${ca_dir}/private/classroom.key /etc/openldap/certs
 cat > /var/www/html/scripts/epoch.py << EOF
-# The application interface is a callable objects
 import time
 
 def application ( # It accepts two arguments:
