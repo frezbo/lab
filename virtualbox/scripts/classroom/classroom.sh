@@ -1,4 +1,5 @@
 #!/bin/bash
+ca_dir=/root/ca
 hostnamectl set-hostname classroom
 echo "vagrant:vagrant" | chpasswd
 echo "root:centos" | chpasswd
@@ -61,7 +62,7 @@ echo "domain example.com" > /etc/resolv.conf
 yum -y install httpd
 #ln -s /repos/centos /var/www/html
 mkdir -p /var/www/html/keytab
-mkdir -p /var/www/html/pki
+mkdir -p /var/www/html/pki/tls/private /var/www/html/pki/tls/certs /var/www/html/scripts
 sed -i s/^/#/g /etc/httpd/conf.d/welcome.conf
 systemctl enable httpd
 systemctl restart httpd
@@ -75,6 +76,62 @@ systemctl restart httpd
 #audit2allow -a > /tmp/rules.log
 #grep vmblock_t /var/log/audit/audit.log | audit2allow -M httpd_vboxsf > /dev/null 2>&1
 #semodule -i httpd_vboxsf.pp
+
+#CA setup and setting up server and client certificates
+mkdir -p ${ca_dir}/certs ${ca_dir}/crl ${ca_dir}/newcerts ${ca_dir}/private ${ca_dir}/csr
+chmod 700 ${ca_dir}/private
+touch ${ca_dir}/index.txt
+echo 1000 > ${ca_dir}/serial
+cp /usr/local/scripts/openssl.cnf ${ca_dir}
+openssl req -new -config ${ca_dir}/openssl.cnf -newkey rsa:4096 -nodes -x509 -days 7300 -subj "/CN=example.com" -keyout ${ca_dir}/private/ca.key -out ${ca_dir}/certs/ca.crt
+openssl genrsa -out ${ca_dir}/private/classroom.key 4096
+openssl req -new -config ${ca_dir}/openssl.cnf -key ${ca_dir}/private/classroom.key -sha256 -out ${ca_dir}/csr/classroom.csr -subj "/CN=classroom.example.com"
+openssl ca -batch -config ${ca_dir}/openssl.cnf -days 365 -notext -md sha256 -in ${ca_dir}/csr/classroom.csr -out ${ca_dir}/certs/classroom.crt
+openssl genrsa -out ${ca_dir}/private/server1.key 4096
+openssl req -new -config ${ca_dir}/openssl.cnf -key ${ca_dir}/private/server1.key -sha256 -out ${ca_dir}/csr/server1.csr -subj "/CN=server1.example.com"
+openssl ca -batch -config ${ca_dir}/openssl.cnf -days 365 -notext -md sha256 -in ${ca_dir}/csr/server1.csr -out ${ca_dir}/certs/server1.crt
+cp ${ca_dir}/certs/ca.crt /var/www/html/pki/example_ca.crt
+cp ${ca_dir}/certs/server1.crt /var/www/html/pki/tls/certs/server1.crt
+cp ${ca_dir}/private/server1.key /var/www/html/pki/tls/private/server1.key
+cp ${ca_dir}/certs/classroom.crt /etc/openldap/certs
+cp ${ca_dir}/certs/ca.crt /etc/openldap/certs
+cp ${ca_dir}/private/classroom.key /etc/openldap/certs
+cat > /var/www/html/scripts/epoch.py << EOF
+# The application interface is a callable objects
+import time
+
+def application ( # It accepts two arguments:
+    # environ points to a dictionary containing CGI like environment
+    # variables which is populated by the server for each
+    # received request from the client
+    environ,
+    # start_response is a callback function supplied by the server
+    # which takes the HTTP status and headers as arguments
+    start_response
+):
+
+    # Build the response body possibly
+    # using the supplied environ dictionary
+    response_body = 'Current UNIX Epoch Time is: %s' %time.time()  #% environ['REQUEST_METHOD']
+
+    # HTTP response code and message
+    status = '200 OK'
+
+    # HTTP headers expected by the client
+    # They must be wrapped as a list of tupled pairs:
+    # [(Header name, Header value)].
+    response_headers = [
+        ('Content-Type', 'text/plain'),
+        ('Content-Length', str(len(response_body)))
+    ]
+
+    # Send them to the server using the supplied function
+    start_response(status, response_headers)
+
+    # Return the response body. Notice it is wrapped
+    # in a list although it could be any iterable.
+    return [response_body]
+EOF
 yum -y install krb5-server krb5-workstation
 sed -i.old s/^#//g /etc/krb5.conf
 sed -i s/kerberos/classroom/g /etc/krb5.conf
@@ -100,12 +157,12 @@ yum install -y openldap openldap-clients openldap-servers migrationtools
 #sed -i "/olcRootPW/aolcTLSCertificateFile: \/etc\/openldap\/certs\/cacert.pem" /etc/openldap/slapd.d/cn\=config/olcDatabase\=\{2\}hdb.ldif
 #sed -i "/olcTLSCertificateFile/aolcTLSCertificateKeyFile: \/etc\/openldap\/certs\/cakey.pem" /etc/openldap/slapd.d/cn\=config/olcDatabase\=\{2\}hdb.ldif
 #sed -i.old /dc=my-domain/s/my-domain/example/ /etc/openldap/slapd.d/cn\=config/olcDatabase\=\{1\}monitor.ldif
-openssl req -new -x509 -nodes -out /etc/openldap/certs/cacert.pem -keyout /etc/openldap/certs/cakey.pem -days 365 -subj "/C=IN/O=Example/CN=classroom.example.com"
-chown ldap:ldap /etc/openldap/certs/cacert.pem
-chown ldap:ldap /etc/openldap/certs/cakey.pem
-chmod 600 /etc/openldap/certs/cakey.pem
+#openssl req -new -x509 -nodes -out /etc/openldap/certs/cacert.pem -keyout /etc/openldap/certs/cakey.pem -days 365 -subj "/C=IN/O=Example/CN=classroom.example.com"
+sed -i 's/TLS_CACERTDIR.*/TLS_CACERTDIR \/etc\/pki\/nssdb/g' /etc/openldap/ldap.conf
+certutil -d /etc/pki/nssdb -A -n "rootca" -t CT -a -i ${ca_dir}/certs/ca.crt
+chown -R ldap:ldap /etc/openldap/certs
+chmod 600 /etc/openldap/certs/classroom.key
 restorecon -R /etc/openldap/certs
-cp /etc/openldap/certs/cacert.pem /var/www/html/pki
 restorecon -R /var/www/html
 cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
 chown -R ldap:ldap /var/lib/ldap/
@@ -153,13 +210,19 @@ ldapmodify -Q -Y EXTERNAL -H ldapi:/// <<EOF
 dn: cn=config
 changetype: modify
 replace: olcTLSCertificateFile
-olcTLSCertificateFile: /etc/openldap/certs/cacert.pem
+olcTLSCertificateFile: /etc/openldap/certs/classroom.crt
 EOF
 ldapmodify -Q -Y EXTERNAL -H ldapi:/// <<EOF
 dn: cn=config
 changetype: modify
 replace: olcTLSCertificateKeyFile
-olcTLSCertificateKeyFile: /etc/openldap/certs/cakey.pem
+olcTLSCertificateKeyFile: /etc/openldap/certs/classroom.key
+EOF
+ldapmodify -Q -Y EXTERNAL -H ldapi:/// <<EOF
+dn: cn=config
+changetype: modify
+add: olcTLSCACertificateFile
+olcTLSCACertificateFile: /etc/openldap/certs/classroom.key
 EOF
 sed -i.old "/$NAMINGCONTEXT{'group'}/s/ou=Group/ou=Groups/" /usr/share/migrationtools/migrate_common.ph
 sed -i '/$DEFAULT_MAIL_DOMAIN/s/padl.com/example.com/' /usr/share/migrationtools/migrate_common.ph
