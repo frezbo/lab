@@ -114,13 +114,13 @@ keytab files: <br/>
 * server: http://classroom.example.com/keytab/server1.keytab <br/>
 * desktop: http://classroom.example.com/keytab/desktop1.keytab <br/>
 
-CA certificate: http://192.168.33.254/pki/example_ca.crt <br/>
+CA certificate: http://classroom.example.com/pki/example_ca.crt <br/>
 
 For httpd: <br/><br/>
-server1 key file: http://192.168.33.254/pki/tls/private/server1.key <br/>
-server1 crt file: http://192.168.33.254/pki/tls/certs/server1.crt <br/>
+server1 key file: http://classroom.example.com/pki/tls/private/server1.key <br/>
+server1 crt file: http://classroom.example.com/pki/tls/certs/server1.crt <br/>
 
-Sample WSGI script: http://192.168.33.254/scripts/epoch.py <br/>
+Sample WSGI script: http://classroom.example.com/scripts/epoch.py <br/>
 
 #### server1
 
