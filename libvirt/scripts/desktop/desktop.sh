@@ -9,8 +9,6 @@ nameserver 192.168.33.254
 domain example.com
 EOF
 sed -i 's/TLS_CACERTDIR.*/TLS_CACERTDIR \/etc\/pki\/nssdb/g' /etc/openldap/ldap.conf
-wget http://192.168.33.254/pki/example_ca.crt
-certutil -d /etc/pki/nssdb -A -n "rootca" -t CT -a -i example_ca.crt
 echo "PEERDNS=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0
 sed -i.old /mirrorlist=.*repo=os/s/^/#/ /etc/yum.repos.d/CentOS-Base.repo
 sed -i /mirrorlist=.*repo=updates/s/^/#/ /etc/yum.repos.d/CentOS-Base.repo
@@ -20,6 +18,8 @@ sed -i '/#baseurl=.*\/updates/s/^#//' /etc/yum.repos.d/CentOS-Base.repo
 sed -i /^baseurl=/s/mirror.centos.org/172.16.0.143/ /etc/yum.repos.d/CentOS-Base.repo
 #yum -y update
 yum -y install net-tools bind-utils vim wget policycoreutils-python krb5-workstation acl
+wget http://192.168.33.254/pki/example_ca.crt
+certutil -d /etc/pki/nssdb -A -n "rootca" -t CT -a -i example_ca.crt
 sed -i.old s/^#//g /etc/krb5.conf
 sed -i s/kerberos/classroom/g /etc/krb5.conf
 systemctl enable firewalld
