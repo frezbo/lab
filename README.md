@@ -131,6 +131,9 @@ users: <br/>
 * user: vagrant, password: vagrant <br/>
 * user: root, password: centos <br/>
 
+script for checking teaming: /usr/local/scripts/teambridge.sh  <br/>
+Make the script executable: `chmod u+x /usr/local/scripts/teambridge.sh` <br/>
+and run `./usr/local/scripts/teambridge.sh` <br/>
 secondary disk: /dev/sdb if using virtualbox, otherwise /dev/vdb <br/>
 
 #### desktop1
