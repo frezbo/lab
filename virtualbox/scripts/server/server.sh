@@ -4,6 +4,8 @@ echo "root:centos" | chpasswd
 hostnamectl set-hostname server1
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 systemctl restart sshd
+sed -i "s/NM_CONTROLLED=no/NM_CONTROLLED=yes/g" /etc/sysconfig/network-scripts/ifcfg-eth1
+systemctl restart network
 cat > /etc/resolv.conf << EOF
 nameserver 192.168.33.254
 domain example.com

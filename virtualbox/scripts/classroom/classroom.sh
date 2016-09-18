@@ -26,7 +26,7 @@ yum -y install bind
 sed -i.old 11s/127.0.0.1/any/g /etc/named.conf
 sed -i 17s/localhost/any/g /etc/named.conf
 sed -i "s/dnssec-validation yes/dnssec-validation no/g" /etc/named.conf
-sed -i '29a\\tforward only;\n\tforwarders { 10.0.2.3; };' /etc/named.conf
+sed -i '29a\\tforward only;\n\tforwarders { 127.0.0.1; };' /etc/named.conf
 sed -i '50azone "example.com" {\ntype master;\nfile "example.com.zone";\nallow-update { none; };\n};\n\nzone "33.168.192.in-addr.arpa" {\ntype master;\nfile "example.com.revzone";\nallow-update { none; };\n};' /etc/named.conf
 cat > /var/named/example.com.zone << EOF
 \$TTL 86400
@@ -58,6 +58,15 @@ cat > /var/named/example.com.revzone << EOF
 EOF
 systemctl enable named
 systemctl restart named
+sed -i "s/NM_CONTROLLED=no/NM_CONTROLLED=yes/g" /etc/sysconfig/network-scripts/ifcfg-eth1
+cat << EOF >> /etc/sysconfig/network-scripts/ifcfg-eth1
+IPV6INIT=yes
+IPV6_AUTOCONF=no
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6ADDR=2000::254/64
+EOF
+systemctl restart network
 echo "domain example.com" > /etc/resolv.conf
 yum -y install httpd
 #ln -s /repos/centos /var/www/html

@@ -91,7 +91,8 @@ vagrant ssh desktop
 #### classroom
 
 hostname: classroom.example.com <br/>
-ip: 192.168.33.254 <br/>
+ipv4: 192.168.33.254 <br/>
+ipv6: 2000::254/64 <br/>
 kdc server: classroom.example.com <br/>
 REALM: EXAMPLE.COM <br/>
 ldap server: classroom.example.com <br/>
@@ -125,7 +126,8 @@ Sample WSGI script: http://classroom.example.com/scripts/epoch.py <br/>
 #### server1
 
 hostname: server.example.com <br/>
-ip: 192.168.33.11 <br/>
+ipv4: 192.168.33.11 <br/>
+ipv6: set one in 2000::/64 range <br/>
 
 users: <br/>
 * user: vagrant, password: vagrant <br/>
@@ -142,7 +144,8 @@ secondary disk: /dev/sdb if using virtualbox, otherwise /dev/vdb <br/>
 #### desktop1
 
 hostname: desktop1.example.com <br/>
-ip: 192.168.33.10 <br/>
+ipv4: 192.168.33.10 <br/>
+ipv6: set one in 2000::/64 range <br/><br/>
 users: <br/>
 
 * user: vagrant, password: vagrant <br/>
