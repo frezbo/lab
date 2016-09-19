@@ -138,7 +138,10 @@ Make the script executable: `chmod u+x /usr/local/scripts/teambridge.sh` <br/>
 and run `./usr/local/scripts/teambridge.sh` <br/>
 ##### teaming interfaces
 * eno1 <br/>
-* eno2 <br/>
+* eno2 <br/><br/>
+bridge ip: 10.10.0.254 <br/>
+set any ip in the 10.10.0.0/24 network for the teamed interface <br/><br/>
+
 secondary disk: /dev/sdb if using virtualbox, otherwise /dev/vdb <br/>
 
 #### desktop1
